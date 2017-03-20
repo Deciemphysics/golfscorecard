@@ -3,6 +3,9 @@
 
 // https://golf-courses-api.herokuapp.com/courses/ + id
 
+
+// GOOGLE MAPS API KEY
+// AIzaSyAmiXBLuqOYrtXAdM_e5SBm9WfHBABKb-0
 var choiceID;
 var courses = {};
 function getCourses() {
@@ -38,3 +41,5 @@ function getCourseData(id){
     xhttp.open("GET","https://golf-courses-api.herokuapp.com/courses/"+id,true);
     xhttp.send();
 }
+
+// Adding and initializing google maps API
