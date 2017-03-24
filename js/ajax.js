@@ -38,27 +38,36 @@ function initMap() {
 }
 
 function getCourses() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
-            var data = JSON.parse(xhttp.responseText);
-            courses = data.courses;
-            courses.forEach(function (course){
-                document.getElementById('courseSelect').innerHTML += '<option value="'+course.id+'">'+course.name+'</option>'
-            })
-        }
-    };
-    // xhttp.open("GET","http://xkcd.com/info.0.json",true);
-    xhttp.open("POST","https://golf-courses-api.herokuapp.com/courses/",true);
-    xhttp.setRequestHeader('Content-Type','application/json');
-    var body = {
-        "latitude": 40.431459252532,
-        "longitude": -111.905075311661,
-        "radius": 10
-    };
-    // xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-    xhttp.send(JSON.stringify(body));
+    return new Promise(executor);
+    function executor(resolve,reject) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
+                var data = JSON.parse(xhttp.responseText);
+                courses = data.courses;
+                resolve(courses);
+                courses.forEach(function (course) { // NEED TO REMOVE THIS IT WILL NOT RUN FROM HERE DOWN
+                    document.getElementById('courseSelect').innerHTML += '<option value="' + course.id + '">' + course.name + '</option>'
+                });
+            }
+        };
+
+        // xhttp.open("GET","http://xkcd.com/info.0.json",true);
+        xhttp.open("POST", "https://golf-courses-api.herokuapp.com/courses/", true);
+        xhttp.setRequestHeader('Content-Type', 'application/json');
+        var body = {
+            "latitude": 40.431459252532,
+            "longitude": -111.905075311661,
+            "radius": 10
+        };
+        // xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xhttp.send(JSON.stringify(body));
+
+    }
+
+
 }
+
 
 function getCourseData(id){
     var xhttp = new XMLHttpRequest();
