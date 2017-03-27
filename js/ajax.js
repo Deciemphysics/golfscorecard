@@ -37,22 +37,18 @@ function initMap() {
 
 }
 
+
 function getCourses() {
-    return new Promise(executor);
-    function executor(resolve,reject) {
+    return new Promise(function (resolve) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
                 var data = JSON.parse(xhttp.responseText);
                 courses = data.courses;
                 resolve(courses);
-                courses.forEach(function (course) { // NEED TO REMOVE THIS IT WILL NOT RUN FROM HERE DOWN
-                    document.getElementById('courseSelect').innerHTML += '<option value="' + course.id + '">' + course.name + '</option>'
-                });
+
             }
         };
-
-        // xhttp.open("GET","http://xkcd.com/info.0.json",true);
         xhttp.open("POST", "https://golf-courses-api.herokuapp.com/courses/", true);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         var body = {
@@ -60,41 +56,32 @@ function getCourses() {
             "longitude": -111.905075311661,
             "radius": 10
         };
-        // xhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
         xhttp.send(JSON.stringify(body));
-
-    }
-
-
+    });
 }
 
 
 function getCourseData(id){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-        if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
-            courseData = JSON.parse(xhttp.responseText);
-            lat1 = courseData.course.holes[0].green_location.lat;
-            lng1 = courseData.course.holes[0].green_location.lng;
-            lat2 = courseData.course.holes[0].tee_boxes[0].location.lat;
-            lng2 = courseData.course.holes[0].tee_boxes[0].location.lng;
-            initMap();
-            //map.marker1.setPosition({lat: courseData.course.holes[0].green_location.lat, lng: courseData.course.holes[0].green_location.lng});
-        }
-    };
-    xhttp.open("GET","https://golf-courses-api.herokuapp.com/courses/"+id,true);
-    xhttp.send();
+    return new Promise(function (resolve) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200) {
+                courseData = JSON.parse(xhttp.responseText);
+                lat1 = courseData.course.holes[0].green_location.lat;
+                lng1 = courseData.course.holes[0].green_location.lng;
+                lat2 = courseData.course.holes[0].tee_boxes[0].location.lat;
+                lng2 = courseData.course.holes[0].tee_boxes[0].location.lng;
+                initMap();
+                resolve(courseData);
+            }
+        };
+        xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
+        xhttp.send();
+    });
 }
 
-// navigator.geolocation.getCurrentPosition(function(position){
-//     do_something(position.coords.latitude, position.coords.longitude);
-// });  MAKE THIS A WATCHPOSITION
-
-// I NEED TO STEAL COLES THINGY
-// initMap was down to
-
-/*
-function changeMarker(type, num){
-    zoom 16
-    init map he built INTO
-}*/
+getCourses().then(function() {
+    courses.forEach(function (course) { // NEED TO REMOVE THIS IT WILL NOT RUN FROM HERE DOWN
+        document.getElementById('courseSelect').innerHTML += '<option value="' + course.id + '">' + course.name + '</option>'
+    });
+});
