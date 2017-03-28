@@ -1,0 +1,23 @@
+{
+  "name": "golfscorecard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deciemphysics/golfscorecard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Deciemphysics/golfscorecard/issues"
+  },
+  "homepage": "https://github.com/Deciemphysics/golfscorecard#readme",
+  "devDependencies": {
+    "jasmine": "^2.5.3"
+  }
+}
