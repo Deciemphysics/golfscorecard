@@ -7,12 +7,15 @@
 // GOOGLE MAPS API KEY
 // AIzaSyAmiXBLuqOYrtXAdM_e5SBm9WfHBABKb-0
 
-var courses;
-var courseData;
+var courses = {};
+var courseData = {};
 var lat1 = 40.431459252532;
 var lat2 = 40.431459252532;
 var lng1 = -111.905075311661;
 var lng2 = -111.905075311661;
+var place = {};
+var placeName;
+var placeInfo = {};
 
 // Adding and initializing google maps API
 function initMap() {
@@ -79,9 +82,48 @@ function getCourseData(id){
         xhttp.send();
     });
 }
+// function getPlace(placeName){
+//     return new Promise(function (resolve,reject){
+//         var xhttp = new XMLHttpRequest;
+//         xhttp.onreadystatechange = function(){
+//             if(xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200){
+//                 place = JSON.parse(xhttp.responseText);
+//             }
+//         };
+//         xhttp.open("GET", "https://maps.googleapis.com/maps/api/place/textsearch/json?" + placeName + "&AIzaSyAmiXBLuqOYrtXAdM_e5SBm9WfHBABKb-0" , true);
+//         xhttp.send();
+//     })
+// } 
 
+// function getPlaceDetails(id){
+//     return new Promise(function(resolve,reject){
+//         var xhttp = new XMLHttpRequest();
+//         xhttp.onreadystatechange = function(){
+//             if(xhttp.readyState == XMLHttpRequest.DONE && xhttp.status == 200){
+//                 placeInfo = JSON.parse(xhttp.responseText);
+//                 resolve(placeInfo);
+//             }else{
+//                 reject('err');
+//             }
+//         };
+//         xhttp.open("GET", "https://maps.googleapis.com/maps/api/place/details/json?AIzaSyAmiXBLuqOYrtXAdM_e5SBm9WfHBABKb-0&"+id, true);
+//         xhttp.send();
+//     })
+// }
+// function encodeName(nameOfCourse){
+//     placeName = encodeURIComponent(nameOfCourse);
+// }
 getCourses().then(function() {
-    courses.forEach(function (course) { // NEED TO REMOVE THIS IT WILL NOT RUN FROM HERE DOWN
+    courses.forEach(function (course) { 
         document.getElementById('courseSelect').innerHTML += '<option value="' + course.id + '">' + course.name + '</option>'
     });
 });
+
+function runCourse(id){
+    getCourseData(id);
+    //getCourseData(id).then(console.log(courseData.course.status));
+    
+}
+
+
+// Alright. So I have a way to calculate total, calculate par, 
