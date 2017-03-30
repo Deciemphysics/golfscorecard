@@ -23,7 +23,7 @@ describe('ScoreService', function () {
         })
     })
     describe('getInScore', function () {
-        it('should return the correct sum of the back nine', function(){
+        it('should return the correct sum of the back nine', function () {
             var scores = [];
             var expectedIn = 0;
             for (var hole = 9; hole < 18; hole++) {
@@ -36,13 +36,13 @@ describe('ScoreService', function () {
         })
     })
     describe('getTotalScore', function () {
-        it('should return the correct sum of the front nine plus the back nine', function(){
+        it('should return the correct sum of the front nine plus the back nine', function () {
             var scores = [];
             var expectedTotal = 0;
-            for (var hole = 0; hole < 18; hole++){
+            for (var hole = 0; hole < 18; hole++) {
                 var randomScore = Math.floor(Math.random() * 10);
                 scores[hole] = randomScore;
-                expectedTotal = expectedTotal + randomScore; 
+                expectedTotal = expectedTotal + randomScore;
             }
             var actualTotal = scoreService.getTotalScore(scores);
             expect(actualTotal).toEqual(expectedTotal);
@@ -50,14 +50,14 @@ describe('ScoreService', function () {
         })
     })
     describe('getScoreToPar', function () {
-        it('should return the difference from the par', function(){
+        it('should return the difference from the par', function () {
             var scores = [];
             var par = [];
             var expectedTotal = 0;
             var expectedPar = 0;
             var expectedDifference = 0;
-            for (var hole = 0; hole < 18; hole++){
-                var randomScore = Math.floor(Math.random() *10);
+            for (var hole = 0; hole < 18; hole++) {
+                var randomScore = Math.floor(Math.random() * 10);
                 var randomPar = Math.floor(Math.random() * 7);
                 scores[hole] = randomScore;
                 par[hole] = randomPar;

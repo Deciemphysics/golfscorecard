@@ -113,6 +113,7 @@ function getCourseData(id){
 // function encodeName(nameOfCourse){
 //     placeName = encodeURIComponent(nameOfCourse);
 // }
+
 getCourses().then(function() {
     courses.forEach(function (course) { 
         document.getElementById('courseSelect').innerHTML += '<option value="' + course.id + '">' + course.name + '</option>'
@@ -120,8 +121,9 @@ getCourses().then(function() {
 });
 
 function runCourse(id){
-    getCourseData(id);
-    //getCourseData(id).then(console.log(courseData.course.status));
+    
+ 
+    getCourseData(id).then(function(courseData){console.log(courseData.course.name)});
     
 }
 
