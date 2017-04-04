@@ -14,7 +14,6 @@ function LinkedList(){
             while(node && node.data.name.toLowerCase() < ins.data.name.toLowerCase()){
                 prev = node;
                 node = node.next;
-                this.length++;
             }
             if ( prev == null ){
                 head = ins;
@@ -23,6 +22,7 @@ function LinkedList(){
             }
             else if ( node == null){
                 prev.next = ins;
+                this.length++;
             } else if (node.data.name.toLowerCase() != ins.data.name.toLowerCase()){
                 prev.next = ins;
                 ins.next = node;
@@ -33,32 +33,6 @@ function LinkedList(){
             this.length++;
         }
     }
-        //  while (node != null && node.next != null && node.next.data.name.toLowerCase() < ins.data.name.toLowerCase() ){
-        //     node = node.next;
-        // }
-        // if (node && node.next){
-        //     if ( node.next.data.name != ins.data.name){
-        //         ins.next = node.next;
-        //         node.next = ins;
-        //         this.length++;
-        //     }
-        // } else if ( node ){
-        //     if (node.data.name != ins.data.name){
-        //         if(node.data.name.toLowerCase() < ins.data.name.toLowerCase()){
-        //         node.next = ins;
-        //         this.length++;
-        //         } else {
-        //             ins.next = node;
-        //             this.head = ins;
-        //             this.length++;
-        //         }
-        //     }
-        // }
-        // else { 
-        //     head = ins;
-        //     this.length++;
-        // }
-
 
     function remove( id ){
         let node = head;
@@ -71,8 +45,13 @@ function LinkedList(){
             prev.next = node.next;
             this.length--
         } else if (node && prev == null){
-            node = null;
-            this.length--
+            if (node.next){
+                head = node.next;   
+                this.length--        
+            } else {
+                node = null;
+                this.length--
+            }
         }
 
     }
