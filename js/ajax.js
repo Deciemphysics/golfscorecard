@@ -151,7 +151,14 @@ getCourses().then(appendCourseList);
 function runCourse(id) {
     getCourseData(id).then(function (courseData) {
         console.log(courseData.course.name)
-    });
+    });    
+    document.getElementById('lengthSelect').innerHTML = '<option>--Please Select--</option>';
+    document.getElementById('teeOff').innerHTML = "<option>--Please Select--</option>";
+    document.getElementById('playerEntry').innerHTML = '<div class="col-xs-12 playerContainer" id="playerContainer"><h3>Please select a course, how many holes you would like to play, and your preferred tee.</h3></div>';
+    document.getElementById('playerEntry2').innerHTML = '';
+    document.getElementById('courseEntry').innerHTML = '';
+    document.getElementById('courseEntry2').innerHTML = '';
+    document.getElementById('playerButton').innerHTML = '';
     getCourseData(id).then(placeHoleInfo).then(placeTeeInfo);
 }
 
