@@ -170,10 +170,26 @@ function inScore(playerNumber) {
     var score = 0;
     for (var i = 0; i < 9; i++) {
         if (document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value != null) {
-            score += document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value;
+            score += Number(document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value);
         }
     }
     document.getElementById('player' + playerNumber + 'total').innerHTML = score;
+    for (var i = 0; i < 9; i++) {
+        if (document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value == "") {
+            return;
+        }
+    }
+    var teeId = document.getElementById('teeOff').value;
+    var totPar = courseData.course.tee_types[teeId].front_nine_par;
+    var diffPar = score - totPar;
+    var parReport = totPar - score;
+    var player = document.getElementById('playerName' + playerNumber).value;
+    if (diffPar > 0) {
+        toastr.error('Better luck next time, ' + player + '. You were ' + diffPar + ' over par!');
+    } else {
+        toastr.success('Way too good there, ' + player + '! You were' + parReport + 'under par!');
+    }
+
 }
 
 function outScore(playerNumber) {
@@ -184,6 +200,22 @@ function outScore(playerNumber) {
         }
     }
     document.getElementById('player' + playerNumber + 'total').innerHTML = score;
+    for (var i = 9; i < 18; i++) {
+        if (document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value == "") {
+            return;
+        }
+    }
+    var teeId = document.getElementById('teeOff').value;
+    var totPar = courseData.course.tee_types[teeId].back_nine_par;
+    var diffPar = score - totPar;
+    var parReport = totPar - score;
+    var player = document.getElementById('playerName' + playerNumber).value;
+    if (diffPar > 0) {
+        toastr.error('Better luck next time, ' + player + '. You were ' + diffPar + ' over par!');
+    } else {
+        toastr.success('Way too good there, ' + player + '! You were ' + parReport + ' under par!');
+    }
+
 }
 
 function totalScore(playerNumber) {
@@ -200,8 +232,28 @@ function totalScore(playerNumber) {
         }
     }
     document.getElementById('player' + playerNumber + 'total').innerHTML = score;
+        for (var i = 0; i < 18; i++) {
+        if (document.getElementById('player' + playerNumber + 'hole' + (i + 1)).value == "") {
+            return;
+        }
+    }
+    var teeId = document.getElementById('teeOff').value;
+    var totPar = courseData.course.tee_types[teeId].par;
+    var diffPar = score - totPar;
+    var parReport = totPar - score;
+    var player = document.getElementById('playerName' + playerNumber).value;
+    if (diffPar > 0) {
+        toastr.error('Better luck next time, ' + player + '. You were ' + diffPar + ' over par!');
+    } else {
+        toastr.success('Way too good there, ' + player + '! You were ' + parReport + ' under par!');
+    }
+
 
 }
+
+
+
+
 
 function resetPage() {
     location.reload();
@@ -251,23 +303,23 @@ function addPlayer(holeId) {
         document.getElementById('player' + numPlayers).innerHTML = '<div class="col-xs-2"><input class="form-control" type="text" placeholder="Name"  id="playerName' + numPlayers + '"></div>';
         if (holeId == 0) {
             for (var i = 0; i < 9; i++) {
-                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" onchange="inScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
+                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" min="0" onchange="inScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
             }
             document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1" id="player' + numPlayers + 'total"></div>';
         } else if (holeId == 1) {
             for (var i = 9; i < 18; i++) {
-                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" onchange="outScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
+                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" min="0" onchange="outScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
             }
             document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1" id="player' + numPlayers + 'total"></div>';
         } else {
             document.getElementById('playerEntry2').innerHTML += '<div class="col-xs-12" id="playerContainer2"><div class="row" id="player' + numPlayers + '-2"></div></div>'
             document.getElementById('player' + numPlayers + '-2').innerHTML += '<div class="col-xs-2"></div>';
             for (var i = 0; i < 9; i++) {
-                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" onchange="totalScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
+                document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1"><input type="number" min="0" onchange="totalScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
             }
             document.getElementById('player' + numPlayers).innerHTML += '<div Class="col-xs-1" id="player' + numPlayers + 'fronttotal"></div>';
             for (var i = 9; i < 18; i++) {
-                document.getElementById('player' + numPlayers + '-2').innerHTML += '<div Class="col-xs-1"><input type="number" onchange="totalScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
+                document.getElementById('player' + numPlayers + '-2').innerHTML += '<div Class="col-xs-1"><input type="number" min="0" onchange="totalScore(' + numPlayers + ')" id="player' + numPlayers + 'hole' + (i + 1) + '" class="form-control"></div>';
             }
             document.getElementById('player' + numPlayers + '-2').innerHTML += '<div Class="col-xs-1" id="player' + numPlayers + 'total"></div>';
 
