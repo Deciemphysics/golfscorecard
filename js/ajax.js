@@ -48,7 +48,11 @@ function initMap() {
     });
     var marker2 = new google.maps.Marker({
         position: loc2,
-        map: map
+        map: map,
+        icon: {
+            url: 'resources/images/golf-flag.png',
+            scaledSize: new google.maps.Size(30,30)
+        }
     });
 
 }
