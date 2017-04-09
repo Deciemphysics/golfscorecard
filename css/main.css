@@ -1,6 +1,19 @@
 
 #map {
-    height: 400px;
+    height: 250px;
     width: 100%;
     background-color: grey;
+}
+
+.courses {
+    padding: 10px;
+    background-color: #FFF;
+    margin: 0 10px;
+}
+.green{
+    background-color: #0a8116;
+    border-radius: 10px;
+}
+.marginBox{
+    margin: 5px;
 }

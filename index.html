@@ -15,14 +15,35 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-8 col-md-4">
+    <div class="container green">
+        <div class="row marginBox">
+            <div class="col-xs-4 col-md-4">
                 <select id="courseSelect" class="form-control" onchange="runCourse(document.getElementById('courseSelect').value)"></select>
             </div>
+            <div class='col-xs-3 col-md-3'>
+                <select id="lengthSelect" class='form-control' onchange="placeTeeInfo()"></select>
+            </div>
+            <div class='col-xs-3 col-md-3'>
+                <select id="teeOff" class="form-control" onchange="initPlayers(document.getElementById('lengthSelect').value)"></select>
+            </div>
+            <div class='col-xs-2 col-md-2' id='geoButton'></div>
+
         </div>
-        <h3>My Google Maps Demo</h3>
-        <div id="map"></div>
+        <div class='row courses' id='courseEntry'></div>
+        <div class='row courses' id="playerEntry">
+            <div class="col-xs-12" id="playerContainer">
+                <h3>Please select a course, how many holes you would like to play, and your preferred tee.</h3>
+            </div>
+        </div>
+        <div class='row courses' id='courseEntry2'></div>
+        <div class='row courses' id='playerEntry2'></div> <!-- Pretend these dont exist okay? -->
+        <div class='row courses' id='playerButton'></div>
+        <div class='row marginBox'>
+            <div class='col-xs-3'></div>
+            <div class="col-xs-6">
+                <div id="map"></div>
+            </div>
+        </div>
     </div>
 </body>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmiXBLuqOYrtXAdM_e5SBm9WfHBABKb-0&callback=initMap"></script>
